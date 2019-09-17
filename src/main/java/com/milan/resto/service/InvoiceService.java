@@ -43,7 +43,7 @@ public class InvoiceService {
         BigDecimal tax = subTotal.multiply(BigDecimal.valueOf(0.1));
         BigDecimal serviceCharge = subTotal.multiply(BigDecimal.valueOf(0.15));
         BigDecimal totalBill = subTotal.add(tax).add(serviceCharge);
-        BigDecimal discount = BigDecimal.valueOf(50000);
+        BigDecimal discount = BigDecimal.valueOf(15000);
         BigDecimal totalBillAfterDiscount = totalBill.subtract(discount);
 
 
@@ -70,5 +70,9 @@ public class InvoiceService {
 
         return invoiceResponseDto;
 
+    }
+
+    public InvoiceOrder findByTableId(Integer id) {
+        return invoiceRepository.findByTableId(id);
     }
 }
