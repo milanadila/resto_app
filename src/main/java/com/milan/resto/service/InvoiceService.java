@@ -3,7 +3,6 @@ package com.milan.resto.service;
 import com.milan.resto.dto.InvoiceRequestDto;
 import com.milan.resto.dto.InvoiceResponseDto;
 import com.milan.resto.entity.InvoiceOrder;
-import com.milan.resto.entity.OrderItem;
 import com.milan.resto.exception.IdNotFoundException;
 import com.milan.resto.repository.InvoiceRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +32,9 @@ public class InvoiceService {
 
     public InvoiceResponseDto showInvoice(InvoiceRequestDto invoiceRequestDto) {
         BigDecimal orderItem = orderService.getTotalPrice(invoiceRequestDto.getTableId());
-//        Integer menuId = orderItem.getMenuId();
-//        Integer quantity = orderItem.getQuantity();
-//        BigDecimal menuPrice = orderItem.getMenuPrice();
         BigDecimal subTotal = orderItem;
-        log.info("SUBTOTAL :: " + subTotal);
+        log.info("SUBTOTAL : " + subTotal);
 
-//        BigDecimal subTotal = menuPrice.multiply(new BigDecimal(quantity));
         BigDecimal tax = subTotal.multiply(BigDecimal.valueOf(0.1));
         BigDecimal serviceCharge = subTotal.multiply(BigDecimal.valueOf(0.15));
         BigDecimal totalBill = subTotal.add(tax).add(serviceCharge);

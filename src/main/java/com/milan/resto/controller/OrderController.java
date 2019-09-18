@@ -44,4 +44,15 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(response);
     }
+
+    @DeleteMapping(value = "/{id}")
+    ResponseEntity<Response> cancelOrder(@PathVariable ("id") Integer id) {
+        Response response = new Response();
+        response.setMessage("Order cancelled");
+        response.setData(orderService.findById(id));
+
+        orderService.cancelOrder(id);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(response);
+    }
 }

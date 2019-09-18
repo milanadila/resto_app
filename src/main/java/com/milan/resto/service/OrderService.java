@@ -57,4 +57,8 @@ public class OrderService {
     public BigDecimal getTotalPrice(Integer id) {
         return orderItemRepository.getTotalPrice(id);
     }
+
+    public void cancelOrder(Integer id) {
+        orderItemRepository.deleteById(id);
+    }
 }
