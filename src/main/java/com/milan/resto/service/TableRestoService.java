@@ -24,19 +24,29 @@ public class TableRestoService {
         return tableRestoRepository.findById(id).orElseThrow(IdNotFoundException::new);
     }
 
-    public TableResponseDto chooseTable(TableRequestDto tableRequestDto) {
-        TableResto tableResto = new TableResto();
-        tableResto.setTableNumber(tableRequestDto.getTableNumber());
-        tableResto.setTableCapacity(tableRequestDto.getTableCapacity());
-        tableResto.setTableAvailability(true);
+    public TableResponseDto chooseTable(TableRequestDto tableRequestDto) throws Exception{
+        TableResto tableResto = tableRestoRepository.findByTableNumber(tableRequestDto.getTableNumber());
+        Boolean status = tableResto.getTableAvailability();
+        if (status == false) {
+            throw new Exception("Table is not available");
+        }
+        tableResto.setTableAvailability(false);
         tableRestoRepository.save(tableResto);
 
         TableResponseDto tableResponseDto = new TableResponseDto();
         tableResponseDto.setTableId(tableResto.getTableId());
         tableResponseDto.setTableNumber(tableResto.getTableNumber());
         tableResponseDto.setTableCapacity(tableResto.getTableCapacity());
-        tableResponseDto.setTableAvailability(true);
+        tableResponseDto.setTableAvailability(false);
 
         return tableResponseDto;
+    }
+
+    public TableResto findByTableNumber(Integer tableNumber) {
+        return tableRestoRepository.findByTableNumber(tableNumber);
+    }
+
+    public void save(TableResto tableResto) {
+        tableRestoRepository.save(tableResto);
     }
 }

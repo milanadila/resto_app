@@ -55,6 +55,7 @@ public class InvoiceService {
         invoiceOrder.setInvoiceServiceCharge(serviceCharge);
         invoiceOrder.setInvoiceDiscount(discount);
         invoiceOrder.setInvoiceTotalBill(totalBillAfterDiscount);
+        invoiceOrder.setInvoiceStatusPayment(false);
         invoiceRepository.save(invoiceOrder);
 
         InvoiceResponseDto invoiceResponseDto = new InvoiceResponseDto();
@@ -74,5 +75,9 @@ public class InvoiceService {
 
     public InvoiceOrder findByTableId(Integer id) {
         return invoiceRepository.findByTableId(id);
+    }
+
+    public void save(InvoiceOrder invoiceOrder) {
+        invoiceRepository.save(invoiceOrder);
     }
 }

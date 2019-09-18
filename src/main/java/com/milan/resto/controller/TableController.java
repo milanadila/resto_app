@@ -37,7 +37,7 @@ public class TableController {
     }
 
     @PostMapping
-    ResponseEntity<Response> chooseTable(@RequestBody @Valid TableRequestDto tableRequestDto) {
+    ResponseEntity<Response> chooseTable(@RequestBody @Valid TableRequestDto tableRequestDto) throws Exception{
         Response response = new Response();
         response.setMessage("Success choose table");
         response.setData(tableRestoService.chooseTable(tableRequestDto));

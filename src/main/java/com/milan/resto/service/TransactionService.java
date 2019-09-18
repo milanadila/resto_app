@@ -3,6 +3,7 @@ package com.milan.resto.service;
 import com.milan.resto.dto.TransactionRequestDto;
 import com.milan.resto.dto.TransactionResponseDto;
 import com.milan.resto.entity.InvoiceOrder;
+import com.milan.resto.entity.TableResto;
 import com.milan.resto.entity.TransactionOrder;
 import com.milan.resto.exception.IdNotFoundException;
 import com.milan.resto.repository.TransactionRepository;
@@ -21,7 +22,7 @@ public class TransactionService {
     TransactionRepository transactionRepository;
 
     @Autowired
-    OrderService orderService;
+    TableRestoService tableRestoService;
 
     @Autowired
     InvoiceService invoiceService;
@@ -34,7 +35,7 @@ public class TransactionService {
         return transactionRepository.findById(id).orElseThrow(IdNotFoundException::new);
     }
 
-    public TransactionResponseDto doTransaction(TransactionRequestDto transactionRequestDto) {
+    public TransactionResponseDto doTransaction(TransactionRequestDto transactionRequestDto) throws Exception{
 //        BigDecimal orderItem = orderService.getTotalPrice(transactionRequestDto.getTableId());
 //        BigDecimal subTotal = orderItem;
 //        log.info("SUBTOTAL : " + subTotal);
@@ -42,6 +43,17 @@ public class TransactionService {
         InvoiceOrder invoice = invoiceService.findByTableId(transactionRequestDto.getTableId());
         BigDecimal totalBill = invoice.getInvoiceTotalBill();
         String customerName = invoice.getInvoiceCustomerName();
+        Boolean status = invoice.getInvoiceStatusPayment();
+        if (status == true) {
+            throw new Exception("Invoice was paid");
+        }
+        invoice.setInvoiceStatusPayment(true);
+        invoiceService.save(invoice);
+
+        TableResto table = tableRestoService.findByTableNumber(transactionRequestDto.getTableId());
+        table.setTableAvailability(true);
+        tableRestoService.save(table);
+
 
         TransactionOrder transactionOrder = new TransactionOrder();
         transactionOrder.setTableId(transactionRequestDto.getTableId());

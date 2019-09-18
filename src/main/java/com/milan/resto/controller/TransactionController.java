@@ -38,7 +38,7 @@ public class TransactionController {
     }
 
     @PostMapping
-    ResponseEntity<Response> doOrder(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
+    ResponseEntity<Response> doOrder(@RequestBody @Valid TransactionRequestDto transactionRequestDto) throws Exception{
         Response response = new Response();
         response.setMessage("Payment Success");
         response.setData(transactionService.doTransaction(transactionRequestDto));
