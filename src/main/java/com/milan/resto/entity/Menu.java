@@ -21,6 +21,6 @@ public class Menu {
     private BigDecimal menuPrice;
 
     @Column(name = "menu_stock")
-    private BigDecimal menuStock;
+    private Integer menuStock;
 
 }

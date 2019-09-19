@@ -36,9 +36,6 @@ public class TransactionService {
     }
 
     public TransactionResponseDto doTransaction(TransactionRequestDto transactionRequestDto) throws Exception{
-//        BigDecimal orderItem = orderService.getTotalPrice(transactionRequestDto.getTableId());
-//        BigDecimal subTotal = orderItem;
-//        log.info("SUBTOTAL : " + subTotal);
 
         InvoiceOrder invoice = invoiceService.findByTableId(transactionRequestDto.getTableId());
         BigDecimal totalBill = invoice.getInvoiceTotalBill();

@@ -12,4 +12,6 @@ public class MenuResponseDto {
     private String menuName;
 
     private BigDecimal menuPrice;
+
+    private Integer menuStock;
 }

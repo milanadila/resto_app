@@ -33,13 +33,11 @@ public class MenuService {
     }
 
     public Menu findById(Integer id) {
-
         Optional<Menu> menu = Optional.of(menuRepository.findById(id).orElseThrow(IdNotFoundException::new));
-        Menu menuResponseDto = new Menu();
-        menuResponseDto.setMenuId(menu.get().getMenuId());
-        menuResponseDto.setMenuName(menu.get().getMenuName());
-        menuResponseDto.setMenuPrice(menu.get().getMenuPrice());
+        return menu.get();
+    }
 
-        return menuResponseDto;
+    public void save(Menu menu) {
+        menuRepository.save(menu);
     }
 }

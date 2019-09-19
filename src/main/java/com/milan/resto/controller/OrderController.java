@@ -37,7 +37,7 @@ public class OrderController {
     }
 
     @PostMapping
-    ResponseEntity<Response> doOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
+    ResponseEntity<Response> doOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) throws Exception{
         Response response = new Response();
         response.setMessage("Success do order");
         response.setData(orderService.doOrder(orderRequestDto));
@@ -45,13 +45,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(response);
     }
 
-    @DeleteMapping(value = "/{id}")
-    ResponseEntity<Response> cancelOrder(@PathVariable ("id") Integer id) {
+    @DeleteMapping(value = "/{menuId}/{tableId}")
+    ResponseEntity<Response> cancelOrder(@PathVariable ("menuId") Integer menuId, @PathVariable("tableId") Integer tableId) {
         Response response = new Response();
         response.setMessage("Order cancelled");
-        response.setData(orderService.findById(id));
+        response.setData(orderService.findByMenuIAndTableId(menuId, tableId));
 
-        orderService.cancelOrder(id);
+        orderService.cancelOrder(menuId, tableId);
 
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(response);
     }
