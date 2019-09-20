@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<th:block th:fragment="navbar">
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/home}">POP'S</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/pop/menu/listMenu">MENU<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pop/order/viewOrder">ORDER</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pop/invoice/viewInvoice">INVOICE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/pop/transaction/viewTransaction">TRANSACTION</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</th:block>
+</body>
+</html>

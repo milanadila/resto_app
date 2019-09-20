@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout.html}">
+<head>
+    <title>Pop's Resto</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="container my-5">
+        <h2 class="p-3 mb-2 text-center">List Order</h2>
+        <table class="table table-hover" id="table-list">
+            <thead>
+            <tr>
+                <th scope="col">Table Number</th>
+                <th scope="col">Menu Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Order Description</th>
+                <th scope="col">Price</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${Orders}">
+                <th th:text="${order.tableId}" scope="row">1</th>
+                <td th:text="${order.menuName}"></td>
+                <td th:text="${order.quantity}"></td>
+                <td th:text="${order.orderDescription}"></td>
+                <td th:inline="text">Rp. [[${#numbers.formatDecimal(order.menuPrice, 0, 'COMMA', 2, 'POINT')}]]</td>
+                <td>
+                    <button class="btn btn-outline-danger" href="">
+                        <a >Cancel Order</a>
+                    </button>
+                </td>
+            </tr>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
