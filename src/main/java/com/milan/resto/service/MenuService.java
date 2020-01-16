@@ -4,6 +4,7 @@ import com.milan.resto.dto.MenuResponseDto;
 import com.milan.resto.entity.Menu;
 import com.milan.resto.exception.IdNotFoundException;
 import com.milan.resto.repository.MenuRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class MenuService {
 
@@ -25,10 +27,8 @@ public class MenuService {
             menuResponseDto.setMenuId(menu.getMenuId());
             menuResponseDto.setMenuName(menu.getMenuName());
             menuResponseDto.setMenuPrice(menu.getMenuPrice());
-
             listMenuDto.add(menuResponseDto);
         }
-
         return listMenuDto;
     }
 
